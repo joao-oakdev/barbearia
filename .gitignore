@@ -1,0 +1,13 @@
+# Backend sensível
+backend/src/main/resources/application.properties
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr

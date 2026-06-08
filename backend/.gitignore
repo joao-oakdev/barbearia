@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# sensitive
+backend/src/main/resources/application.properties
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
