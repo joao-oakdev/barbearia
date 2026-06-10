@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/api'
+    // Lê a variável da Vercel em produção, mas mantém o localhost para o seu desenvolvimento
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
 });
 
 // Interceptor de REQUEST — adiciona o token
