@@ -24,7 +24,7 @@ function LoginPage() {
 
                 {/* Logo / Header */}
                 <div className="text-center mb-10">
-                    <h1 className="text-6xl text-laranja">BARBEARIA</h1>
+                    <h1 className="text-6xl text-laranja">OAK'S BARBEARIA</h1>
                     <p className="text-cinza text-sm tracking-widest uppercase mt-1">Sistema de Agendamentos</p>
                 </div>
 
