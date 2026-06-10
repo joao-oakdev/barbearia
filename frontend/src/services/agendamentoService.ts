@@ -1,5 +1,5 @@
 import api from './api';
-import type { Agendamento, HorarioDisponivel } from '../types';
+import type { Agendamento } from '../types';
 
 export const listarHorariosDisponiveis = async (barbeiroId: number, data: string): Promise<string[]> => {
     const resposta = await api.get('/agendamentos/disponiveis', {
