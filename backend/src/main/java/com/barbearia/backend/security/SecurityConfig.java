@@ -70,7 +70,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         // Substitua pelo link que a Vercel te der depois, ou use "*" para liberar qualquer um por enquanto
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://seu-frontend.vercel.app"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://barbearia-peach-three.vercel.app/"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
         configuration.setAllowCredentials(true);
