@@ -6,6 +6,7 @@ import com.barbearia.backend.enums.StatusAgendamentoEnum;
 import com.barbearia.backend.exception.HorarioIndisponivelException;
 import com.barbearia.backend.exception.NotFoundException;
 import com.barbearia.backend.exception.SemPermissaoException;
+import com.barbearia.backend.messaging.AgendamentoProducer;
 import com.barbearia.backend.model.Agendamento;
 import com.barbearia.backend.model.Barbeiro;
 import com.barbearia.backend.model.Cliente;
@@ -24,15 +25,16 @@ import java.util.List;
 public class AgendamentoService {
 
     private static final Logger logger = LoggerFactory.getLogger(AgendamentoService.class);
-
+    private final AgendamentoProducer agendamentoProducer;
     private final AgendamentoRepository agendamentoRepository;
     private final BarbeiroRepository barbeiroRepository;
     private final ClienteRepository clienteRepository;
 
-    public AgendamentoService(AgendamentoRepository agendamentoRepository, BarbeiroRepository barbeiroRepository, ClienteRepository clienteRepository) {
+    public AgendamentoService(AgendamentoRepository agendamentoRepository, BarbeiroRepository barbeiroRepository, ClienteRepository clienteRepository, AgendamentoProducer agendamentoProducer) {
         this.agendamentoRepository = agendamentoRepository;
         this.barbeiroRepository = barbeiroRepository;
         this.clienteRepository = clienteRepository;
+        this.agendamentoProducer = agendamentoProducer;
 
     }
 
@@ -63,13 +65,17 @@ public class AgendamentoService {
         Agendamento salvo = agendamentoRepository.save(novoAgendamento);
         logger.info("Agendamento criado com sucesso — id: {}, cliente: {}", salvo.getId(), emailCliente);
 
-        return new AgendamentoResponseDTO(
+        AgendamentoResponseDTO responseDTO = new AgendamentoResponseDTO(
                 salvo.getId(),
                 salvo.getCliente().getUsuario().getNome(),
                 salvo.getBarbeiro().getUsuario().getNome(),
                 salvo.getDataHora(),
                 salvo.getStatus()
         );
+
+        agendamentoProducer.publicarAgendamentoCriado(salvo.getId(), emailCliente);
+
+        return responseDTO;
     }
 
     public List<LocalDateTime> listarHorariosDisponiveis(Long barbeiroId, LocalDate data) {
